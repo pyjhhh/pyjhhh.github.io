@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>php使用soap通信(一) | Outlaws</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;lt;!-- toc --&amp;gt;
+做外部可调用的接口，要求根据一个几个参数返回所有的字段信息，需要使用soap通信。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php使用soap通信(一)">
+<meta property="og:url" content="http://yoursite.com/2015/04/07/soap/index.html">
+<meta property="og:site_name" content="Outlaws">
+<meta property="og:description" content="&amp;lt;!-- toc --&amp;gt;
+做外部可调用的接口，要求根据一个几个参数返回所有的字段信息，需要使用soap通信。">
+<meta property="og:updated_time" content="2016-01-02T09:24:08.814Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php使用soap通信(一)">
+<meta name="twitter:description" content="&amp;lt;!-- toc --&amp;gt;
+做外部可调用的接口，要求根据一个几个参数返回所有的字段信息，需要使用soap通信。">
+  
+  
+    <link rel="icon" href="/code_style.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xicmj.com1.z0.glb.clouddn.com/logo.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">lybc</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">有用是有趣的前提</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/lybc" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/li-yi-bo-cheng" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:lybcli@163.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Scrapy/" style="font-size: 20px;">Scrapy</a> <a href="/tags/Sublime-Text-3/" style="font-size: 10px;">Sublime Text 3</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/soap/" style="font-size: 15px;">soap</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">lybc</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://7xicmj.com1.z0.glb.clouddn.com/logo.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">lybc</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">有用是有趣的前提</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/lybc" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/li-yi-bo-cheng" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:lybcli@163.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-soap" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/07/soap/" class="article-date">
+  	<time datetime="2015-04-07T01:56:30.000Z" itemprop="datePublished">2015-04-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      php使用soap通信(一)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/soap/">soap</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/PHP/">PHP</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<p>做外部可调用的接口，要求根据一个几个参数返回所有的字段信息，需要使用soap通信。<br><a id="more"></a><br><strong>什么是soap通信</strong><br>假设现在有三方系统互相需要通信互相调用，这三个系统一个使用C#语言，一个使用Java语言，一个使用PHP语言，这三方系统的数据结构彼此不相同，如何实现互通？<br>这时候就需要一个独立于语言和平台之外的东西来结构化三方的数据来实现彼此互通的目的，于是我们需要使用soap。简单的说，soap是一种基于xml的http通信协议。</p>
+<p><strong>维基百科搬运：</strong></p>
+<blockquote>
+<p>SOAP（原为Simple Object Access Protocol的首字母缩写，即简单对象访问协议）是交换数据的一种协议规范，使用在计算机网络Web服务（web service）中，交换带结构信息。SOAP为了简化网页服务器（Web Server）从XML数据库中提取数据时，节省去格式化页面时间，以及不同应用程序之间按照HTTP通信协议，遵从XML格式执行资料互换，使其抽象于语言实现、平台和硬件。此标准由IBM、Microsoft、UserLand和DevelopMentor在1998年共同提出，并得到IBM，莲花（Lotus），康柏（Compaq）等公司的支持，于2000年提交给万维网联盟（World Wide Web Consortium；W3C），目前SOAP 1.1版是业界共同的标准，属于第二代的XML协定（第一代具主要代表性的技术为XML-RPC以及WDDX）。</p>
+</blockquote>
+<p>用一个简单的例子来说明SOAP使用过程，一个SOAP消息可以发送到一个具有Web Service功能的Web站点，例如，一个含有房价信息的数据库，消息的参数中标明这是一个查询消息，此站点将返回一个XML格式的信息，其中包含了查询结果（价格，位置，特点，或者其他信息）。由于数据是用一种标准化的可分析的结构来传递的，所以可以直接被第三方站点所利用。</p>
+<h1 id="PHP_u4F7F_u7528soap_u901A_u4FE1_u7684_u65B9_u6CD5"><a href="#PHP_u4F7F_u7528soap_u901A_u4FE1_u7684_u65B9_u6CD5" class="headerlink" title="PHP使用soap通信的方法"></a>PHP使用soap通信的方法</h1><p>soap有两种操作模式，<strong>NO-WSDL</strong>和<strong>WSDL</strong>，WSDL是基于XML的网络服务描述语言，用于描述网络服务，也可以定义网络服务</p>
+<h2 id="1-_NO-WSDL_u65B9_u5F0F_u4F7F_u7528soap"><a href="#1-_NO-WSDL_u65B9_u5F0F_u4F7F_u7528soap" class="headerlink" title="1. NO-WSDL方式使用soap"></a>1. NO-WSDL方式使用soap</h2><p>首先我们来定义客户端<strong>client</strong>和服务端<strong>server</strong>，在客户端调用服务端提供的接口，得到返回的数据后，就完成了一次soap通信</p>
+<p><strong>client.php客户端代码：</strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ini_set(<span class="string">"soap.wsdl_cache_enabled"</span>, <span class="string">"0"</span>);  <span class="comment">//设置soap缓存为0</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="variable">$client</span> = <span class="keyword">new</span> SoapClient(<span class="keyword">null</span>, <span class="keyword">array</span>(<span class="string">'location'</span> =&gt; <span class="string">'http://localhost/server.php'</span>,<span class="string">'uri'</span>=&gt;<span class="string">'http://localhost'</span>)); <span class="comment">//location写服务端的位置，uri必须和服务端的uri一致</span></span><br><span class="line">    <span class="variable">$client</span>-&gt;__getFunctions(); <span class="comment">//可以得到服务端所有可以调用的方法</span></span><br><span class="line">    <span class="variable">$result</span> = <span class="variable">$client</span>-&gt;sayHello();</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;"</span>.print_r(<span class="variable">$result</span>).<span class="string">"&lt;/pre&gt;"</span>;</span><br><span class="line">&#125;<span class="keyword">catch</span>(SoapFault <span class="variable">$e</span>)&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">"&lt;pre&gt;"</span>.print_r(<span class="variable">$e</span>).<span class="string">"&lt;/pre&gt;"</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$e</span>-&gt;getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>server.php服务端代码：</strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 服务端接口类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">server</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$message</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(<span class="variable">$a</span>, <span class="variable">$b</span>)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="variable">$a</span> + <span class="variable">$b</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// soap服务端定义</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	ini_set(<span class="string">'soap.wsdl_catch_enable'</span>,<span class="string">'0'</span>); <span class="comment">//关闭wdsl缓存</span></span><br><span class="line">	<span class="variable">$server</span> = <span class="keyword">new</span> SoapServer(<span class="keyword">null</span>, <span class="keyword">array</span>(<span class="string">'uri'</span> =&gt; <span class="string">'http://localhost'</span>));</span><br><span class="line">	<span class="variable">$server</span>-&gt;setClass(<span class="string">'server'</span>);<span class="comment">// 设置处理请求的class</span></span><br><span class="line">	<span class="variable">$server</span>-&gt;handle();</span><br><span class="line">&#125;<span class="keyword">catch</span>(SoapFault <span class="variable">$e</span>)&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$e</span>-&gt;faultString; <span class="comment">// 打印出错信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-_WSDL_u65B9_u5F0F_u4F7F_u7528soap"><a href="#2-_WSDL_u65B9_u5F0F_u4F7F_u7528soap" class="headerlink" title="2. WSDL方式使用soap"></a>2. WSDL方式使用soap</h2><p><strong>关于WSDL，维基百科搬运：</strong></p>
+<blockquote>
+<p>WSDL（Web服务描述语言，Web Services Description Language）是为描述Web服务发布的XML格式。W3C组织（World Wide Web Consortium）没有批准1.1版的WSDL，当前的WSDL版本是2.0，是W3C的推荐标准（recommendation）（一种官方标准），并将被W3C组织批准为正式标准。</p>
+<p>在诸多技术文献中通常将Web服务描述语言简写为WSDL，读音通常发为：”wiz-dəl”。</p>
+<p>WSDL描述Web服务的公共接口。这是一个基于XML的关于如何与Web服务通讯和使用的服务描述；也就是描述与目录中列出的Web服务进行交互时需要绑定的协议和信息格式。通常采用抽象语言描述该服务支持的操作和信息，使用的时候再将实际的网络协议和信息格式绑定给该服务。</p>
+</blockquote>
+<p>so，首先我们需要一个wsdl文件，其他流程和不用wsdl一样，只是发送的请求和返回的响应经过wsdl描述之后起到了跨平台跨语言的作用。</p>
+<p>我们使用以下代码来简单的生成一个wsdl文件</p>
+<p><strong>创建一个soapDiscovery.class.php</strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SoapDiscovery</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$class_name</span> = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$service_name</span> = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * SoapDiscovery::__construct() SoapDiscovery class Constructor.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> string $class_name</span><br><span class="line">     * <span class="doctag">@param</span> string $service_name</span><br><span class="line">     **/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(<span class="variable">$class_name</span> = <span class="string">''</span>, <span class="variable">$service_name</span> = <span class="string">''</span>)</span> </span>&#123;</span><br><span class="line">        <span class="variable">$this</span>-&gt;class_name = <span class="variable">$class_name</span>;</span><br><span class="line">        <span class="variable">$this</span>-&gt;service_name = <span class="variable">$service_name</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * SoapDiscovery::getWSDL() Returns the WSDL of a class if the class is instantiable.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@return</span> string</span><br><span class="line">     **/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getWSDL</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>(<span class="variable">$this</span>-&gt;service_name)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="keyword">Exception</span>(<span class="string">'No service name.'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$headerWSDL</span> = <span class="string">"&lt;?xml version=\"1.0\" ?&gt;\n"</span>;</span><br><span class="line">        <span class="variable">$headerWSDL</span>.= <span class="string">"&lt;definitions name=\"$this-&gt;service_name\" targetNamespace=\"urn:$this-&gt;service_name\"</span><br><span class="line">          xmlns:wsdl=\"http://schemas.xmlsoap.org/wsdl/\"</span><br><span class="line">          xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\" </span><br><span class="line">          xmlns:tns=\"urn:$this-&gt;service_name\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" </span><br><span class="line">          xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" </span><br><span class="line">          xmlns=\"http://schemas.xmlsoap.org/wsdl/\"&gt;\n"</span>;</span><br><span class="line">        <span class="variable">$headerWSDL</span>.= <span class="string">"&lt;types xmlns=\"http://schemas.xmlsoap.org/wsdl/\" /&gt;\n"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>(<span class="variable">$this</span>-&gt;class_name)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="keyword">Exception</span>(<span class="string">'No class name.'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="variable">$class</span> = <span class="keyword">new</span> ReflectionClass(<span class="variable">$this</span>-&gt;class_name);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable">$class</span>-&gt;isInstantiable()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="keyword">Exception</span>(<span class="string">'Class is not instantiable.'</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="variable">$methods</span> = <span class="variable">$class</span>-&gt;getMethods();</span><br><span class="line"></span><br><span class="line">        <span class="variable">$portTypeWSDL</span> = <span class="string">'&lt;portType name="'</span>.<span class="variable">$this</span>-&gt;service_name.<span class="string">'Port"&gt;'</span>;</span><br><span class="line">        <span class="variable">$bindingWSDL</span> = <span class="string">'&lt;binding name="'</span>.<span class="variable">$this</span>-&gt;service_name.<span class="string">'Binding" type="tns:'</span>.<span class="variable">$this</span>-&gt;service_name.<span class="string">"Port\"&gt;\n</span><br><span class="line">        &lt;soap:binding style=\"rpc\" transport=\"http://schemas.xmlsoap.org/soap/http\" /&gt;\n"</span>;</span><br><span class="line">        <span class="variable">$serviceWSDL</span> = <span class="string">'&lt;service name="'</span>.<span class="variable">$this</span>-&gt;service_name.<span class="string">"\"&gt;</span><br><span class="line">        \n&lt;documentation /&gt;</span><br><span class="line">        \n&lt;port name=\""</span>.<span class="variable">$this</span>-&gt;service_name.<span class="string">'Port" binding="tns:'</span>.<span class="variable">$this</span>-&gt;service_name.<span class="string">"Binding\"&gt;</span><br><span class="line">        &lt;soap:address location=\"http://"</span>.<span class="variable">$_SERVER</span>[<span class="string">'SERVER_NAME'</span>].<span class="string">':'</span>.<span class="variable">$_SERVER</span>[<span class="string">'SERVER_PORT'</span>].<span class="variable">$_SERVER</span>[<span class="string">'PHP_SELF'</span>].<span class="string">"\" /&gt;</span><br><span class="line">        \n&lt;/port&gt;\n&lt;/service&gt;\n"</span>;</span><br><span class="line">        <span class="variable">$messageWSDL</span> = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="variable">$methods</span> <span class="keyword">as</span> <span class="variable">$method</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$method</span>-&gt;isPublic() &amp;&amp; !<span class="variable">$method</span>-&gt;isConstructor()) &#123;</span><br><span class="line">                <span class="variable">$portTypeWSDL</span>.= <span class="string">'&lt;operation name="'</span>.<span class="variable">$method</span>-&gt;getName().<span class="string">"\"&gt;\n"</span>.</span><br><span class="line">                <span class="string">'&lt;input message="tns:'</span>.<span class="variable">$method</span>-&gt;getName().<span class="string">"Request\" /&gt;\n&lt;output message=\"tns:"</span></span><br><span class="line">                .<span class="variable">$method</span>-&gt;getName().<span class="string">"Response\" /&gt;\n&lt;/operation&gt;\n"</span>;</span><br><span class="line">                <span class="variable">$bindingWSDL</span>.= <span class="string">'&lt;operation name="'</span>.<span class="variable">$method</span>-&gt;getName().<span class="string">"\"&gt;\n"</span>.<span class="string">'&lt;soap:operation soapAction="urn:'</span>.</span><br><span class="line">                <span class="variable">$this</span>-&gt;service_name.<span class="string">'#'</span>.<span class="variable">$this</span>-&gt;class_name.<span class="string">'#'</span>.<span class="variable">$method</span>-&gt;getName().<span class="string">"\" /&gt;\n</span><br><span class="line">                &lt;input&gt;&lt;soap:body use=\"encoded\" namespace=\"urn:$this-&gt;service_name\" encodingStyle=\"</span><br><span class="line">                http://schemas.xmlsoap.org/soap/encoding/\" /&gt;\n&lt;/input&gt;\n&lt;output&gt;\n&lt;soap:body use=\"encoded\"</span><br><span class="line">                namespace=\"urn:$this-&gt;service_name\" encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\" /&gt;</span><br><span class="line">                \n&lt;/output&gt;\n&lt;/operation&gt;\n"</span>;</span><br><span class="line">                <span class="variable">$messageWSDL</span>.= <span class="string">'&lt;message name="'</span>.<span class="variable">$method</span>-&gt;getName().<span class="string">"Request\"&gt;\n"</span>;</span><br><span class="line">                <span class="variable">$parameters</span> = <span class="variable">$method</span>-&gt;getParameters();</span><br><span class="line">                <span class="keyword">foreach</span> (<span class="variable">$parameters</span> <span class="keyword">as</span> <span class="variable">$parameter</span>) &#123;</span><br><span class="line">                    <span class="variable">$messageWSDL</span>.= <span class="string">'&lt;part name="'</span>.<span class="variable">$parameter</span>-&gt;getName().<span class="string">"\" type=\"xsd:string\" /&gt;\n"</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="variable">$messageWSDL</span>.= <span class="string">"&lt;/message&gt;\n"</span>;</span><br><span class="line">                <span class="variable">$messageWSDL</span>.= <span class="string">'&lt;message name="'</span>.<span class="variable">$method</span>-&gt;getName().<span class="string">"Response\"&gt;\n"</span>;</span><br><span class="line">                <span class="variable">$messageWSDL</span>.= <span class="string">'&lt;part name="'</span>.<span class="variable">$method</span>-&gt;getName().<span class="string">"\" type=\"xsd:string\" /&gt;\n"</span>;</span><br><span class="line">                <span class="variable">$messageWSDL</span>.= <span class="string">"&lt;/message&gt;\n"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$portTypeWSDL</span>.= <span class="string">"&lt;/portType&gt;\n"</span>;</span><br><span class="line">        <span class="variable">$bindingWSDL</span>.= <span class="string">"&lt;/binding&gt;\n"</span>;</span><br><span class="line">        <span class="keyword">return</span> sprintf(<span class="string">'%s%s%s%s%s%s'</span>, <span class="variable">$headerWSDL</span>, <span class="variable">$portTypeWSDL</span>, <span class="variable">$bindingWSDL</span>, <span class="variable">$serviceWSDL</span>, <span class="variable">$messageWSDL</span>, </span><br><span class="line">            <span class="string">'&lt;/definitions&gt;'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * SoapDiscovery::getDiscovery() Returns discovery of WSDL.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@return</span> string</span><br><span class="line">     **/</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getDiscovery</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&lt;?xml version=\"1.0\" ?&gt;\n&lt;disco:discovery xmlns:disco=\"http://schemas.xmlsoap.org/disco/\" </span><br><span class="line">        xmlns:scl=\"http://schemas.xmlsoap.org/disco/scl/\"&gt;\n&lt;scl:contractRef ref=\"http://"</span>.<span class="variable">$_SERVER</span>[<span class="string">'SERVER_NAME'</span>].</span><br><span class="line">        <span class="string">':'</span>.<span class="variable">$_SERVER</span>[<span class="string">'SERVER_PORT'</span>].<span class="variable">$_SERVER</span>[<span class="string">'PHP_SELF'</span>].<span class="string">"?wsdl\" /&gt;\n&lt;/disco:discovery&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>再创建一个createWSDL文件</strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include</span> <span class="string">'soapDiscovery.class.php'</span>;</span><br><span class="line"><span class="keyword">include</span> <span class="string">'server.php'</span>;</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line"><span class="variable">$disco</span> = <span class="keyword">new</span> SoapDiscovery(<span class="string">'server'</span>,<span class="string">'server'</span>); <span class="comment">//第一个参数是说明需要基于哪个类生成WSDL文件，第二个参数是指生成的wsdl的名称可以随意写</span></span><br><span class="line"><span class="variable">$result</span> = <span class="variable">$disco</span>-&gt;getWSDL(); <span class="comment">// 调用soapDiscovery中的getWSDL方法</span></span><br><span class="line"><span class="comment">// echo "&lt;pre&gt;".printf($result)."&lt;/pre&gt;";</span></span><br><span class="line"><span class="variable">$crFile</span> = fopen(<span class="string">"newServer.wsdl"</span>, <span class="string">"w"</span>); <span class="comment">// 写入到文件</span></span><br><span class="line">fwrite(<span class="variable">$crFile</span>, <span class="variable">$result</span>);</span><br><span class="line">&#125;<span class="keyword">catch</span>(<span class="keyword">Exception</span> <span class="variable">$e</span>)&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$e</span>-&gt;getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行createWSDL文件中的代码后，会得到一个名为newServer.wsdl的文件，文件代码如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">definitions</span> <span class="attribute">name</span>=<span class="value">"service"</span> <span class="attribute">targetNamespace</span>=<span class="value">"urn:service"</span></span><br><span class="line">          <span class="attribute">xmlns:wsdl</span>=<span class="value">"http://schemas.xmlsoap.org/wsdl/"</span></span><br><span class="line">          <span class="attribute">xmlns:soap</span>=<span class="value">"http://schemas.xmlsoap.org/wsdl/soap/"</span> </span><br><span class="line">          <span class="attribute">xmlns:tns</span>=<span class="value">"urn:service"</span> <span class="attribute">xmlns:xsd</span>=<span class="value">"http://www.w3.org/2001/XMLSchema"</span> </span><br><span class="line">          <span class="attribute">xmlns:SOAP-ENC</span>=<span class="value">"http://schemas.xmlsoap.org/soap/encoding/"</span> </span><br><span class="line">          <span class="attribute">xmlns</span>=<span class="value">"http://schemas.xmlsoap.org/wsdl/"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">types</span> <span class="attribute">xmlns</span>=<span class="value">"http://schemas.xmlsoap.org/wsdl/"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">portType</span> <span class="attribute">name</span>=<span class="value">"servicePort"</span>&gt;</span><span class="tag">&lt;<span class="title">operation</span> <span class="attribute">name</span>=<span class="value">"sayHello"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">message</span>=<span class="value">"tns:sayHelloRequest"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">output</span> <span class="attribute">message</span>=<span class="value">"tns:sayHelloResponse"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">operation</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">operation</span> <span class="attribute">name</span>=<span class="value">"add"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">message</span>=<span class="value">"tns:addRequest"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">output</span> <span class="attribute">message</span>=<span class="value">"tns:addResponse"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">operation</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">portType</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">binding</span> <span class="attribute">name</span>=<span class="value">"serviceBinding"</span> <span class="attribute">type</span>=<span class="value">"tns:servicePort"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">soap:binding</span> <span class="attribute">style</span>=<span class="value">"rpc"</span> <span class="attribute">transport</span>=<span class="value">"http://schemas.xmlsoap.org/soap/http"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">operation</span> <span class="attribute">name</span>=<span class="value">"sayHello"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">soap:operation</span> <span class="attribute">soapAction</span>=<span class="value">"urn:service#server#sayHello"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">soap:body</span> <span class="attribute">use</span>=<span class="value">"encoded"</span> <span class="attribute">namespace</span>=<span class="value">"urn:service"</span> <span class="attribute">encodingStyle</span>=<span class="value">"http://schemas.xmlsoap.org/soap/encoding/"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">output</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">soap:body</span> <span class="attribute">use</span>=<span class="value">"encoded"</span> <span class="attribute">namespace</span>=<span class="value">"urn:service"</span> <span class="attribute">encodingStyle</span>=<span class="value">"http://schemas.xmlsoap.org/soap/encoding/"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">output</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">operation</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">operation</span> <span class="attribute">name</span>=<span class="value">"add"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">soap:operation</span> <span class="attribute">soapAction</span>=<span class="value">"urn:service#server#add"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span>&gt;</span><span class="tag">&lt;<span class="title">soap:body</span> <span class="attribute">use</span>=<span class="value">"encoded"</span> <span class="attribute">namespace</span>=<span class="value">"urn:service"</span> <span class="attribute">encodingStyle</span>=<span class="value">"</span><br><span class="line">http://schemas.xmlsoap.org/soap/encoding/"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">output</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">soap:body</span> <span class="attribute">use</span>=<span class="value">"encoded"</span> <span class="attribute">namespace</span>=<span class="value">"urn:service"</span> <span class="attribute">encodingStyle</span>=<span class="value">"http://schemas.xmlsoap.org/soap/encoding/"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">output</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">operation</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">binding</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">service</span> <span class="attribute">name</span>=<span class="value">"service"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">documentation</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">port</span> <span class="attribute">name</span>=<span class="value">"servicePort"</span> <span class="attribute">binding</span>=<span class="value">"tns:serviceBinding"</span>&gt;</span><span class="tag">&lt;<span class="title">soap:address</span> <span class="attribute">location</span>=<span class="value">"http://localhost:80/createWSDL.php"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">port</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">service</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">message</span> <span class="attribute">name</span>=<span class="value">"sayHelloRequest"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">message</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">message</span> <span class="attribute">name</span>=<span class="value">"sayHelloResponse"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">part</span> <span class="attribute">name</span>=<span class="value">"sayHello"</span> <span class="attribute">type</span>=<span class="value">"xsd:string"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">message</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">message</span> <span class="attribute">name</span>=<span class="value">"addRequest"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">part</span> <span class="attribute">name</span>=<span class="value">"a"</span> <span class="attribute">type</span>=<span class="value">"xsd:string"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">part</span> <span class="attribute">name</span>=<span class="value">"b"</span> <span class="attribute">type</span>=<span class="value">"xsd:string"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">message</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">message</span> <span class="attribute">name</span>=<span class="value">"addResponse"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">part</span> <span class="attribute">name</span>=<span class="value">"add"</span> <span class="attribute">type</span>=<span class="value">"xsd:string"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">message</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">definitions</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>得到wsdl文件之后，将客户端和服务端的代码做一定改变使其通过wsdl文件描述<br><strong>client.php</strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ini_set(<span class="string">'soap.wsdl_catch_enable'</span>,<span class="string">'0'</span>); <span class="comment">//关闭wdsl缓存</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	<span class="variable">$client</span> = <span class="keyword">new</span> SoapClient(<span class="string">'http://localhost/server.php?wsdl'</span>);</span><br><span class="line">	var_dump(<span class="variable">$client</span>-&gt;sayHello());</span><br><span class="line">&#125;<span class="keyword">catch</span>(soapFault <span class="variable">$e</span>)&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$e</span>-&gt;getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>server.php</strong><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">service</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$name</span> = <span class="string">"lybc"</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$age</span> = <span class="string">"19"</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$abc</span> = <span class="string">"lasjdfljaskljfljsdalkfjlasf"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="variable">$this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(<span class="variable">$a</span> , <span class="variable">$b</span>)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		<span class="variable">$arr</span> = <span class="keyword">array</span>(<span class="string">'name'</span> =&gt; <span class="string">'lybc'</span>,<span class="string">'age'</span> =&gt; <span class="string">'19'</span>,<span class="string">'abc'</span> =&gt; <span class="string">'asfasfsadf'</span>);</span><br><span class="line">		<span class="comment">// return serialize($arr);</span></span><br><span class="line">		<span class="keyword">return</span> arr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">link</span><span class="params">(<span class="variable">$a</span> , <span class="variable">$b</span>)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="variable">$a</span> . <span class="variable">$b</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ini_set(<span class="string">'soap.wsdl_catch_enable'</span>,<span class="string">'0'</span>); <span class="comment">//关闭wdsl缓存</span></span><br><span class="line"><span class="variable">$server</span> = <span class="keyword">new</span> SoapServer(<span class="string">"newServer.wsdl"</span>,<span class="keyword">array</span>(<span class="string">'soap_version'</span> =&gt; SOAP_1_2));</span><br><span class="line"><span class="variable">$server</span>-&gt;setClass(<span class="string">"service"</span>);</span><br><span class="line"><span class="variable">$server</span>-&gt;handle();</span><br></pre></td></tr></table></figure></p>
+<p>完成好一切之后在访问localhost/client.php，会得到一个蛋疼的结果</p>
+<blockquote>
+<p>string(6) “Object”</p>
+</blockquote>
+<p>因为我在service这个class中sayHello方法返回的是一个对象，而经过WSDL文件描述后返回的是一个string类型，因此会得到这样一个蛋疼的返回结果。那么如何解决</p>
+<p><strong>修改wsdl文件</strong><br>在wsdl文件中找到下面这段代码<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">message</span> <span class="attribute">name</span>=<span class="value">"sayHelloResponse"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">part</span> <span class="attribute">name</span>=<span class="value">"sayHello"</span> <span class="attribute">type</span>=<span class="value">"xsd:string"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">message</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>将其中的<code>type=&quot;xsd:string&quot;</code>改成<code>type=&quot;xsd:anyType&quot;</code>即可成功的返回一个对象</p>
+<p>为了不同平台的使用建议server端返回一段json类型的字符串让其他平台解析，这样可以保证效率</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/08/soap2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          php使用soap通信(二)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="soap" data-title="php使用soap通信(一)" data-url="http://yoursite.com/2015/04/07/soap/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 lybc
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
