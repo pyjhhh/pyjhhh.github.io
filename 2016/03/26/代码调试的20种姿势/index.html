@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>代码调试 | Outlaws</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在敏捷开发大行其道的今天，代码调试是能否提高工作效率的一个重要问题，在我们平时的软件开发中，代码调试所花费的时间要远高于coding的时间，因此一个高效的代码调试姿势是我们所需要的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码调试">
+<meta property="og:url" content="http://yoursite.com/2016/03/26/代码调试的20种姿势/index.html">
+<meta property="og:site_name" content="Outlaws">
+<meta property="og:description" content="在敏捷开发大行其道的今天，代码调试是能否提高工作效率的一个重要问题，在我们平时的软件开发中，代码调试所花费的时间要远高于coding的时间，因此一个高效的代码调试姿势是我们所需要的。">
+<meta property="og:updated_time" content="2016-03-29T15:53:55.956Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码调试">
+<meta name="twitter:description" content="在敏捷开发大行其道的今天，代码调试是能否提高工作效率的一个重要问题，在我们平时的软件开发中，代码调试所花费的时间要远高于coding的时间，因此一个高效的代码调试姿势是我们所需要的。">
+  
+  
+    <link rel="icon" href="/code_style.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xicmj.com1.z0.glb.clouddn.com/logo.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">lybc</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">有用是有趣的前提</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="http://github.com/lybc" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/li-yi-bo-cheng" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:lybcli@163.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Scrapy/" style="font-size: 20px;">Scrapy</a> <a href="/tags/Sublime-Text-3/" style="font-size: 10px;">Sublime Text 3</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/soap/" style="font-size: 15px;">soap</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/调试/" style="font-size: 10px;">调试</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">lybc</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://7xicmj.com1.z0.glb.clouddn.com/logo.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">lybc</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">有用是有趣的前提</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="http://github.com/lybc" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/li-yi-bo-cheng" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:lybcli@163.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-代码调试的20种姿势" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/26/代码调试的20种姿势/" class="article-date">
+  	<time datetime="2016-03-26T04:10:04.000Z" itemprop="datePublished">2016-03-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      代码调试
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/调试/">调试</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/PHP/">PHP</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在敏捷开发大行其道的今天，代码调试是能否提高工作效率的一个重要问题，在我们平时的软件开发中，代码调试所花费的时间要远高于coding的时间，因此一个高效的代码调试姿势是我们所需要的。<br><a id="more"></a></p>
+<h1 id="u5199_u5728_u4E4B_u524D"><a href="#u5199_u5728_u4E4B_u524D" class="headerlink" title="写在之前"></a>写在之前</h1><p><code>Framework Interoperability Group（框架可互用性小组）</code>简称FIG，成立于 2009年。FIG最初由几位知名PHP框架开发者发起，在吸纳了许多优秀的大脑和强健的体魄后，提出了 PSR-1 到 PSR-4 四套 PHP 非官方规范：</p>
+<blockquote>
+<ol>
+<li><a href="https://github.com/hfcorriez/fig-standards/blob/zh_CN/%E6%8E%A5%E5%8F%97/PSR-1-basic-coding-standard.md" target="_blank" rel="external">PSR-1 (Basic Coding Standard) 基础编码标准</a></li>
+<li><a href="https://github.com/hfcorriez/fig-standards/blob/zh_CN/%E6%8E%A5%E5%8F%97/PSR-2-coding-style-guide.md" target="_blank" rel="external">PSR-2 (Coding Style Guide) 编码风格向导</a></li>
+<li><a href="https://github.com/hfcorriez/fig-standards/blob/zh_CN/%E6%8E%A5%E5%8F%97/PSR-3-logger-interface.md" target="_blank" rel="external">PSR-3 (Logger Interface) 日志接口</a></li>
+<li><a href="https://github.com/hfcorriez/fig-standards/blob/zh_CN/%E6%8E%A5%E5%8F%97/PSR-4-autoloader.md" target="_blank" rel="external">PSR-4 (Improved Autoloading) 自动加载优化标准</a><br>// <a href="https://github.com/hfcorriez/fig-standards/blob/zh_CN/%E6%8E%A5%E5%8F%97/PSR-0.md" target="_blank" rel="external">PSR-0 (Autoloading Standard) 自动加载标准</a> - 截止到2014年10月21日，PSR-0已被弃用。 推荐替代使用PSR-4。</li>
+</ol>
+</blockquote>
+<p>基于此套标准，<a href="http://docs.phpcomposer.com/" target="_blank" rel="external">composer</a>横空出世，利用PHP 5.3版出现的命名空间，以及PSR-0，PSR-4标准，在此之上构造了一个繁荣的PHP生态系统，它类似于javascript的NPM，python的PIP，ruby的gem，通俗的说这是一个php自己的第三方包管理系统。</p>
+<h1 id="u8A00_u5F52_u6B63_u4F20_uFF0C_u4E2A_u4EBA_u5BF9_u4E8E_u4EE3_u7801_u8C03_u8BD5_u7684_u4E00_u4E9B_u4F53_u4F1A"><a href="#u8A00_u5F52_u6B63_u4F20_uFF0C_u4E2A_u4EBA_u5BF9_u4E8E_u4EE3_u7801_u8C03_u8BD5_u7684_u4E00_u4E9B_u4F53_u4F1A" class="headerlink" title="言归正传，个人对于代码调试的一些体会"></a>言归正传，个人对于代码调试的一些体会</h1><p>我认为代码调试主要分为三个阶段.</p>
+<ol>
+<li>开发时的代码调试</li>
+<li>开发后的测试</li>
+<li>程序运行时产生的异常</li>
+</ol>
+<h1 id="u5F00_u53D1_u65F6_u5982_u4F55_u8FDB_u884C_u4EE3_u7801_u8C03_u8BD5"><a href="#u5F00_u53D1_u65F6_u5982_u4F55_u8FDB_u884C_u4EE3_u7801_u8C03_u8BD5" class="headerlink" title="开发时如何进行代码调试"></a>开发时如何进行代码调试</h1><p>就PHP来说，在开发时我们需要知道的信息大致有以下几个</p>
+<ul>
+<li>某个变量的值和类型</li>
+<li>程序运行到了哪一步</li>
+<li>运行完一段代码所花费的时间<br>为了知道这些信息，一般不想折腾的时候比较接地气的做法是在程序中直接将变量输出到页面中，这种做法非常的简单粗暴，优点在于方便快捷，能快速的定位BUG，缺点在于事后清理代码十分的麻烦，并且如果不慎有未清理掉的调试函数在代码中，将会影响到程序的运行。推荐一些比较高效的工具来帮助我们更好的进行代码调试</li>
+</ul>
+<p><strong>注：以下所有工具均使用composer安装</strong></p>
+<h2 id="Faker__u2013__u5047_u6570_u636E_u751F_u6210_u5668"><a href="#Faker__u2013__u5047_u6570_u636E_u751F_u6210_u5668" class="headerlink" title="Faker – 假数据生成器"></a><a href="https://github.com/fzaninotto/Faker" target="_blank" rel="external">Faker – 假数据生成器</a></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//引用Faker 自动加载器</span></span><br><span class="line"><span class="keyword">require_once</span> <span class="string">'/path/to/Faker/src/autoload.php'</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//使用工厂创建来创建一个Faker\Generator实例</span></span><br><span class="line"><span class="variable">$faker</span> = Faker\Factory::create();</span><br><span class="line"> </span><br><span class="line"><span class="comment">//通过访问属性生成假数据</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$faker</span>-&gt;name; </span><br><span class="line"><span class="comment">// 'Lucy Cechtelar';</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$faker</span>-&gt;address;</span><br><span class="line">  </span><br><span class="line"><span class="comment">// "426 Jordy Lodge</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">// Cartwrightshire, SC 88120-6700"</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$faker</span>-&gt;text;</span><br><span class="line"><span class="comment">// Sint velit eveniet. Rerum atque repellat voluptatem quia ...</span></span><br></pre></td></tr></table></figure>
+<h2 id="PHP_Debug_Bar"><a href="#PHP_Debug_Bar" class="headerlink" title="PHP Debug Bar"></a><a href="http://phpdebugbar.com/" target="_blank" rel="external">PHP Debug Bar</a></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">DebugBar</span>\<span class="title">StandardDebugBar</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$debugbar</span> = <span class="keyword">new</span> StandardDebugBar();</span><br><span class="line"><span class="variable">$debugbarRenderer</span> = <span class="variable">$debugbar</span>-&gt;getJavascriptRenderer();</span><br><span class="line"></span><br><span class="line"><span class="variable">$debugbar</span>[<span class="string">"messages"</span>]-&gt;addMessage(<span class="string">"hello world!"</span>);</span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    <span class="preprocessor">&lt;?php</span> <span class="keyword">echo</span> <span class="variable">$debugbarRenderer</span>-&gt;renderHead() <span class="preprocessor">?&gt;</span></span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    ...</span><br><span class="line">    <span class="preprocessor">&lt;?php</span> <span class="keyword">echo</span> <span class="variable">$debugbarRenderer</span>-&gt;render() <span class="preprocessor">?&gt;</span></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="u5F00_u53D1_u5B8C_u6210_u65F6_u5982_u4F55_u8FDB_u884C_u5355_u5143_u6D4B_u8BD5"><a href="#u5F00_u53D1_u5B8C_u6210_u65F6_u5982_u4F55_u8FDB_u884C_u5355_u5143_u6D4B_u8BD5" class="headerlink" title="开发完成时如何进行单元测试"></a>开发完成时如何进行单元测试</h1><h2 id="PHPUnit"><a href="#PHPUnit" class="headerlink" title="PHPUnit"></a><a href="https://phpunit.de/manual/current/zh_cn/index.html" target="_blank" rel="external">PHPUnit</a></h2><p>单元测试有几个非常直观的好处</p>
+<ul>
+<li>单元测试可以无限次被执行</li>
+<li>单元测试是很好的文档</li>
+<li>单元测试可以很快地被执行</li>
+<li>单元测试可以被任何人和系统执行</li>
+<li>单元测试可以快速定位到错误代码</li>
+<li>单元测试不会突然被女友喊回家</li>
+</ul>
+<p>就概念而言，单元测试是对一个模块中最基础的逻辑单元进行测试</p>
+<p>假设现在你需要重构一个已经离职多年的程序员遗留下的代码，而你不能保证你的程序是否完全依照正确的业务逻辑执行，而此时你发现了以前的程序员对于这段业务代码的一个单元测试用例，你用你重构后的代码可以跑过这个测试用例，这个时候心里就会特别有底气，单元测试最大的好处是这个单元如果被修改了以后，通过跑测试就能发现是否会影响到原有的逻辑，是否和原来设计的预期保持一致</p>
+<p>因此单元测试一定要由这段代码的开发者来编写，因为只有开发者最清楚这段代码的业务实现<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="comment">// 这是一个测试用例</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StackTest</span> <span class="keyword">extends</span> <span class="title">PHPUnit_Framework_TestCase</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">testPushAndPop</span><span class="params">()</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="variable">$stack</span> = <span class="keyword">array</span>();</span><br><span class="line">        <span class="variable">$this</span>-&gt;assertEquals(<span class="number">0</span>, count(<span class="variable">$stack</span>));</span><br><span class="line"></span><br><span class="line">        array_push(<span class="variable">$stack</span>, <span class="string">'foo'</span>);</span><br><span class="line">        <span class="variable">$this</span>-&gt;assertEquals(<span class="string">'foo'</span>, <span class="variable">$stack</span>[count(<span class="variable">$stack</span>)-<span class="number">1</span>]);</span><br><span class="line">        <span class="variable">$this</span>-&gt;assertEquals(<span class="number">1</span>, count(<span class="variable">$stack</span>));</span><br><span class="line"></span><br><span class="line">        <span class="variable">$this</span>-&gt;assertEquals(<span class="string">'foo'</span>, array_pop(<span class="variable">$stack</span>));</span><br><span class="line">        <span class="variable">$this</span>-&gt;assertEquals(<span class="number">0</span>, count(<span class="variable">$stack</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="u7A0B_u5E8F_u4E0A_u7EBF_u540E_u5982_u4F55_u76D1_u63A7_u5F02_u5E38"><a href="#u7A0B_u5E8F_u4E0A_u7EBF_u540E_u5982_u4F55_u76D1_u63A7_u5F02_u5E38" class="headerlink" title="程序上线后如何监控异常"></a>程序上线后如何监控异常</h1><h2 id="Monolog"><a href="#Monolog" class="headerlink" title="Monolog"></a><a href="http://www.tuicool.com/articles/eiIbYjJ" target="_blank" rel="external">Monolog</a></h2>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/01/12/windows上搭建hexo博客/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Windows上使用hexo搭建博客</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="代码调试的20种姿势" data-title="代码调试" data-url="http://yoursite.com/2016/03/26/代码调试的20种姿势/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 lybc
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
